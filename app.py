@@ -46,6 +46,13 @@ users_schema = UserSchema(many=True)
 def get():
     return jsonify({'Test': 'Hello World'})
 
+# Get an User
+@app.route('/user/<id>', methods=['GET'])
+def get_user(id):
+    user = User.query.get(id)
+    return user_schema.jsonify(user)
+
+# Add an User
 @app.route('/user', methods=['POST'])
 def add_user():
     last_name = request.json['last_name']
@@ -59,6 +66,23 @@ def add_user():
 
     return user_schema.jsonify(new_user)
 
+
+# Update an User
+@app.route('/user/<id>', methods=['PUT'])
+def update_user(id):
+    user = User.query.get(id)
+
+    last_name = request.json['last_name']
+    first_name = request.json['first_name']
+    birth_date = request.json['birth_date']
+
+    user.last_name = last_name
+    user.first_name = first_name
+    user.birth_date = birth_date
+
+    db.session.commit()
+
+    return user_schema.jsonify(user)
 
 # Run Server
 if __name__ == '__main__':
