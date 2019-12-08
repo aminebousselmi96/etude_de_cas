@@ -1,17 +1,13 @@
 from datetime import datetime
-
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-import os
+from config import Config
 
 # Init app
 app = Flask(__name__)
-basedir = os.path.abspath(os.path.dirname(__file__))
+app.config.from_object(Config)
 
-# DataBase
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Init
 db = SQLAlchemy(app)
 # Init ma
@@ -72,11 +68,13 @@ real_estates_schema = RealEstateSchema(many=True)
 def get():
     return jsonify({'Test': 'Hello World'})
 
+
 # Get an User
-@app.route('/user/<id>', methods=['GET'])
-def get_user(id):
-    user = User.query.get(id)
+@app.route('/user/<id_user>', methods=['GET'])
+def get_user(id_user):
+    user = User.query.get(id_user)
     return user_schema.jsonify(user)
+
 
 # Add an User
 @app.route('/user', methods=['POST'])
@@ -94,9 +92,9 @@ def add_user():
 
 
 # Update an User
-@app.route('/user/<id>', methods=['PUT'])
-def update_user(id):
-    user = User.query.get(id)
+@app.route('/user/<id_user>', methods=['PUT'])
+def update_user(id_user):
+    user = User.query.get(id_user)
 
     last_name = request.json['last_name']
     first_name = request.json['first_name']
@@ -110,8 +108,8 @@ def update_user(id):
 
     return user_schema.jsonify(user)
 
+
 # Run Server
 if __name__ == '__main__':
-    db.create_all()
     app.run(debug=True)
-    
+
