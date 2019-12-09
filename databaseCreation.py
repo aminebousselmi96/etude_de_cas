@@ -5,32 +5,32 @@ UserTwo = User(last_name='Durand', first_name='Jeanne', birth_date='04/06/1991')
 UserThree = User(last_name='Toutlemonde', first_name='Marie', birth_date='11/02/1997')
 
 RealEstateOne = RealEstate(
-    name='Flat 1',
-    description='Student flat',
-    kind='Flat',
-    town='Valenciennes',
+    name='flat 1',
+    description='student flat',
+    kind='flat',
+    town='valenciennes',
     nb_room='3',
-    room_description='Living room, bathroom, bedroom',
+    room_description='living room, bathroom, bedroom',
     owner=UserOne,
 )
 
 RealEstateTwo = RealEstate(
-    name='Flat 2',
-    description='Family Flat',
-    kind='Flat',
-    town='Valenciennes',
+    name='flat 2',
+    description='family flat',
+    kind='flat',
+    town='valenciennes',
     nb_room='6',
-    room_description='Living room, bathroom, Parent\'s bedroom, Son\'s bedroom, Daughter \'s bedroom, kitchen',
+    room_description='living room, bathroom, parent\'s bedroom, son\'s bedroom, daughter \'s bedroom, kitchen',
     owner=UserTwo,
 )
 
 RealEstateThree = RealEstate(
-    name='House 333',
-    description='House in Valenciennes \' suburbs',
-    kind='House',
-    town='Famars',
+    name='house 3',
+    description='house in valenciennes \' suburbs',
+    kind='house',
+    town='famars',
     nb_room='7',
-    room_description='Living room, bathroom, Parent\'s bedroom, Son\'s bedroom, Daughter \'s bedroom, kitchen, game room',
+    room_description='living room, bathroom, parent\'s bedroom, son\'s bedroom, daughter \'s bedroom, kitchen, game room',
     owner=UserOne,
 )
 

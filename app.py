@@ -34,7 +34,7 @@ class User(db.Model):
 # Real Estate ClassModel
 class RealEstate(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True, nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(100))
     kind = db.Column(db.String(50))
     town = db.Column(db.String(50), nullable=False)
@@ -107,6 +107,57 @@ def update_user(id_user):
     db.session.commit()
 
     return user_schema.jsonify(user)
+
+
+# Add a realestate
+@app.route('/realestate/<id_user>', methods=['POST'])
+def add_realestate(id_user):
+    user = User.query.get(id_user)
+    
+    new_real_estate = RealEstate(
+        name = request.json['name'],
+        description = request.json['description'],
+        kind = request.json['kind'],
+        town = request.json['town'].lower().strip(),
+        nb_room = request.json['nb_room'],
+        room_description = request.json['room_description'],
+        owner=user
+    )
+
+    db.session.add(new_real_estate)
+    db.session.commit()
+
+    return real_estate_schema.jsonify(new_real_estate)
+
+# Get all RealEstate of a specific city
+@app.route('/realestate/<city_name>', methods=['GET'])
+def get_realestates_city(city_name):
+    all_real_estate = RealEstate.query.filter_by(town=city_name.lower().strip()).all()
+    result = real_estates_schema.dump(all_real_estate)
+
+    return jsonify(result)
+
+# Update a realestate
+@app.route('/realestate/<id_real_estate>/<id_user>', methods=['PUT'])
+def update_realestate(id_real_estate, id_user):
+    real_estate=RealEstate.query.get(id_real_estate)
+
+    if real_estate.owner_id != int(id_user) : 
+        return jsonify({"Acces denied":"You are not the owner"})
+    else :
+        user = User.query.get(id_user)
+        
+        real_estate.name = request.json['name']
+        real_estate.description = request.json['description']
+        real_estate.kind = request.json['kind']
+        real_estate.town = request.json['town']
+        real_estate.nb_room = request.json['nb_room']
+        real_estate.room_description = request.json['room_description']
+
+        db.session.commit()
+
+        return real_estate_schema.jsonify(real_estate)
+
 
 
 # Run Server
