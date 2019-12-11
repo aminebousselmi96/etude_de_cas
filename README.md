@@ -1,6 +1,6 @@
 # Arcane Project
 
-Arcane Project is REST API in python using : 
+Arcane Project is a REST API in python using : 
 
   - Flask
   - SQLAlchemy
@@ -54,7 +54,7 @@ Here is a list of all the api endpoints : (.../ means where you run your server 
 | 1 | GET  | Get an user | .../user/<int:id_user> |
 | 2 | POST  | Add an User | .../user |
 | 3 | PUT  | Update an user | .../user/<int:id_user> |
-| 4 | POST  | Add a realestate | /realestate/<int:id_user> |
+| 4 | POST  | Add a realestate | .../realestate/<int:id_user> |
 | 5 | GET  | Get all real estates of a specific city | .../realestate/<city_name>|
 | 6 | PUT  | Update a real estate | .../realestate/<int:id_real_estate>/<int:id_user> |
 
@@ -71,7 +71,7 @@ Be careful : only requests with a application/json Content-Type are accepted
 * For request 4 and 6, the body request must be similar to this : 
 ```sh
 {
-	"name":"student flat in lille",
+    "name":"student flat in lille",
     "description":"student flat",
     "kind":"flat",
     "town":"lille",
