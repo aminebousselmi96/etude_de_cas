@@ -4,6 +4,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    # DataBase
+    # Database configuration
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
     SQLALCHEMY_TRACK_MODIFICATIONS = False

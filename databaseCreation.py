@@ -1,9 +1,11 @@
 from app import db, User, RealEstate
 
+# Creation of three fictional users
 UserOne = User(last_name='Dupont', first_name='Jean', birth_date='12/03/1993')
 UserTwo = User(last_name='Durand', first_name='Jeanne', birth_date='04/06/1991')
 UserThree = User(last_name='Toutlemonde', first_name='Marie', birth_date='11/02/1997')
 
+# Creation of three fictional real estates
 RealEstateOne = RealEstate(
     name='flat 1',
     description='student flat',
@@ -35,15 +37,16 @@ RealEstateThree = RealEstate(
 )
 
 
+# Function to fill the database
 def feed_the_database():
     db.session.add_all([UserOne, UserTwo, UserThree, RealEstateOne, RealEstateTwo, RealEstateThree])
     db.session.commit()
 
 
-# Create database
+# Creation of the database
 if __name__ == '__main__':
+    # create_all() create the database only if it does not already exist
     db.create_all()
-
-    # Check if the database is empty
+    # Check if the database is empty, if not we do not fill it with our data
     if (User.query.first() is None) & (RealEstate.query.first() is None):
         feed_the_database()
