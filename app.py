@@ -65,11 +65,6 @@ real_estate_schema = RealEstateSchema()
 real_estates_schema = RealEstateSchema(many=True)
 
 
-@app.route('/', methods=['GET'])
-def get():
-    return jsonify({'Test': 'Hello World'})
-
-
 # Get an User
 @app.route('/user/<int:id_user>', methods=['GET'])
 def get_user(id_user):
